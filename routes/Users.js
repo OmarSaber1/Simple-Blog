@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 
+const config = require("config");
+const Secret = config.get("Secret");
+
 // hash password and token
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -57,16 +60,20 @@ router.post(
         return res.status(400).send({ error: `User Already Exists` });
       }
 
-      // if not found create it
+      // if not found hash password and create  it
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      console.log(hashedPassword);
-      const users = await User.create({
+      const user = await User.create({
         name,
         password: hashedPassword,
         email,
       });
-      res.status(200).json({ users });
+
+      // Generate a token
+
+      const token = jwt.sign({ id: user._id }, Secret);
+
+      res.status(200).json({ user, token });
     } catch (err) {
       console.error(err);
       res.status(404).json({ err });

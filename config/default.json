@@ -1,3 +1,4 @@
 {
-  "URI": "mongodb+srv://OmarSaber:0106949759@mern.sashn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  "URI": "mongodb+srv://OmarSaber:0106949759@mern.sashn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "Secret": "SoSecret"
 }
