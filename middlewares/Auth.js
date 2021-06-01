@@ -9,6 +9,7 @@ module.exports = (req, res, next) => {
     const decode = jwt.verify(token, Secret);
 
     req.sign = decode.id;
+
     next();
   } catch (err) {
     res.status(401).send(`You Aren't Authorized`);
