@@ -1,6 +1,10 @@
 const express = require("express");
-const { body, validationResult } = require("express-validator");
 const router = express.Router();
+const { body, validationResult } = require("express-validator");
+
+// hash password and token
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // import user Model
 const User = require("../Models/users");
@@ -54,8 +58,14 @@ router.post(
       }
 
       // if not found create it
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-      const users = await User.create({ name, password, email });
+      console.log(hashedPassword);
+      const users = await User.create({
+        name,
+        password: hashedPassword,
+        email,
+      });
       res.status(200).json({ users });
     } catch (err) {
       console.error(err);
