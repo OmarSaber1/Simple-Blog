@@ -76,7 +76,7 @@ router.post(
       res.status(200).json({ user, token });
     } catch (err) {
       console.error(err);
-      res.status(404).json({ err });
+      res.status(404).json({ err: `Internal Server Error` });
     }
   }
 );
