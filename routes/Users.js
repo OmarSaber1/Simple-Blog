@@ -71,7 +71,9 @@ router.post(
 
       // Generate a token
 
-      const token = jwt.sign({ id: user._id }, Secret);
+      const token = jwt.sign({ id: user._id }, Secret, {
+        expiresIn: 36000,
+      });
 
       res.status(200).json({ user, token });
     } catch (err) {
