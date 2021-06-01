@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+require("./config/db");
+// import routes
 const UserRouter = require("./routes/Users");
 const AuthRouter = require("./routes/Auth");
 const PostRouter = require("./routes/Posts");
