@@ -1,36 +1,29 @@
 const express = require("express");
-const { body, validationResult } = require("express-validator");
 const router = express.Router();
-
+const auth = require("../middlewares/Auth");
+const User = require("../Models/users");
+const { body, validationResult } = require("express-validator");
+const config = require("config");
 const bycrpt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const config = require("config");
 
-const auth = require("../middlewares/Auth");
-
-const User = require("../Models/users");
-
-////////////////////////////////////////////// Check auth middleware if works  ////////////////////////////////////
-
+// User Register Post
 router.get("/", auth, async (req, res) => {
-  // get id from token
   const id = req.sign;
-
   try {
-    // find user by id and never send password
     const user = await User.findById({ _id: id }).select("-password").exec();
-
+    console.log(typeof user, user);
     if (!user) {
-      throw new Error(`No such user exist `);
+      throw "nso";
     }
-    res.status(200).json(user);
+    res.json(user);
     //
   } catch (err) {
     res.status(500).json({ errors: `Server Error` });
   }
 });
 
-/////////////////////////////////////////// Login Auth Post Request //////////////////////
+// Login Auth
 
 router.post(
   "/",
@@ -57,10 +50,9 @@ router.post(
       // check if user already exists!
 
       if (!checkUser) {
-        return res.status(400).json({ error: [`Wrong Username Or Password`] });
+        return res.status(500).json({ error: [`Wrong Username Or Password`] });
       }
 
-      // check of password matches
       const isMatch = bycrpt.compare(password, checkUser.password);
 
       if (isMatch) {
@@ -71,11 +63,13 @@ router.post(
           expiresIn: 360000,
         });
 
-        res.send({ token, user: checkUser });
+        console.log(token);
+
+        res.send({ token });
       }
     } catch (err) {
       console.error(err.message);
-      res.status(500).json({ errors: "Internal Server Error" });
+      res.status(500).json({ errors: "Server Error" });
     }
   }
 );
