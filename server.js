@@ -2,6 +2,11 @@ const express = require("express");
 const app = express();
 
 require("./config/db");
+
+const cors = require("cors");
+
+app.use(cors());
+
 // import routes
 const UserRouter = require("./routes/Users");
 const AuthRouter = require("./routes/Auth");
