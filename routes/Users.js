@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 
+const { cloudinary } = require("../utils/cloudinary");
+
 const config = require("config");
 const Secret = config.get("Secret");
 
@@ -82,4 +84,5 @@ router.post(
     }
   }
 );
+
 module.exports = router;

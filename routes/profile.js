@@ -343,4 +343,19 @@ router.delete("/", auth, async (req, res) => {
   }
 });
 
+router.post("/upload", auth, async (req, res) => {
+  try {
+    console.log("entered backend image");
+    const fileStr = req.body.data;
+    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "users_images",
+    });
+    console.log(uploadResponse);
+    res.json({ msg: "yaya" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ err: "Something went wrong" });
+  }
+});
+
 module.exports = router;

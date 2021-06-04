@@ -2,43 +2,82 @@ import axios from "axios";
 import React, { useState } from "react";
 
 const ProfileTop = ({ profile }) => {
-  //   const [imageSelected, SetImageSelcted] = useState("");
-  //   console.log(profile);
+  /////// setup clodinary
 
-  //   const uploadImage = async (files) => {
-  //     const formData = new FormData();
-  //     formData.append("file", files[0]);
-  //     formData.append("upload_preset", "jxevn5tp");
+  const [fileInputState, setFileInputState] = useState("");
+  const [previewSource, setPreviewSource] = useState("");
+  const [selectedFile, setSelectedFile] = useState();
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errMsg, setErrMsg] = useState("");
 
-  //     const config = {
-  //       headers: {
-  //         "Content-Type": "multipart/formdata",
-  //       },
-  //     };
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+    setSelectedFile(file);
+    setFileInputState(e.target.value);
+  };
 
-  //     await axios.post(
-  //       "https://api.cloudinary.com/v1_1/ddeecshur/upload",
-  //       formData,
-  //       config
-  //     );
-  //   };
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
+
+  const handleSubmitFile = (e) => {
+    e.preventDefault();
+    if (!selectedFile) return;
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onloadend = () => {
+      uploadImage(reader.result);
+    };
+    reader.onerror = () => {
+      console.error("AHHHHHHHH!!");
+      setErrMsg("something went wrong!");
+    };
+  };
+
+  const uploadImage = async (base64EncodedImage) => {
+    try {
+      await fetch("http://localhost:5000/api/porfile/upload", {
+        method: "POST",
+        body: JSON.stringify({ data: base64EncodedImage }),
+        headers: { "Content-Type": "application/json" },
+      });
+      setFileInputState("");
+      setPreviewSource("");
+      setSuccessMsg("Image uploaded successfully");
+    } catch (err) {
+      console.error(err);
+      setErrMsg("Something went wrong!");
+    }
+  };
+
+  /////////////////////////////////////
   return (
     <div className="text-center w-100 bg-light p-3">
       {profile.user.avatar && (
-        <>
-          <img
-            alt=""
-            className="rounded-circle"
-            src={profile.user.avatar}
-          ></img>
-          {/* <input
-            type="file"
-            onChange={(e) => {
-              uploadImage(e.target.files);
-            }}
-          />
-          <button onClick={uploadImage}>uploadImage </button> */}
-        </>
+        <div>
+          <h1 className="title">Upload an Image</h1>
+          <form onSubmit={handleSubmitFile} className="form">
+            <input
+              id="fileInput"
+              type="file"
+              name="image"
+              onChange={handleFileInputChange}
+              value={fileInputState}
+              className="form-input"
+            />
+            <button className="btn" type="submit">
+              Submit
+            </button>
+          </form>
+          {previewSource && (
+            <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
+          )}
+        </div>
       )}
       {profile.user.name && <h2>{profile.user.name}</h2>}
       <p></p>

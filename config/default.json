@@ -1,4 +1,7 @@
 {
   "URI": "mongodb+srv://OmarSaber:0106949759@mern.sashn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  "Secret": "SoSecret"
+  "Secret": "SoSecret",
+  "CLOUDINARY_NAME": "ddeecshur",
+  "CLOUDINARY_API_KEY": "423127452817663",
+  "CLOUDINARY_API_SECRET": "XNytl3__McwCrIquSk2Q7SmEMx8"
 }

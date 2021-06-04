@@ -5,9 +5,16 @@ const postSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
+  name: {
+    type: String,
+    required: true,
+  },
   text: {
     type: String,
     require: true,
+  },
+  avatar: {
+    type: String,
   },
   comments: [
     {
