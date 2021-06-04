@@ -26,6 +26,7 @@ export const postReducer = (state = initialState, action) => {
         posts: payload,
         loading: false,
       };
+    // get post
     case GET_POST:
       console.log(state.post);
       return {
