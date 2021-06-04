@@ -1,5 +1,4 @@
 import axios from "axios";
-import Client from "../client";
 import {
   GET_POSTS,
   LIKE_POST,

@@ -40,7 +40,6 @@ const EditProfile = ({
         youtube: profile.youtube,
         instagram: profile.instagram,
       });
-    console.log(skills, typeof skills);
   }, [loading, profileAction]);
 
   const {
@@ -220,8 +219,6 @@ const EditProfile = ({
 };
 
 const mapStateToProps = (state) => {
-  console.log(state.profileReducer.profile.skills);
-  console.log(typeof state.profileReducer.profile.skills);
   return {
     profile: state.profileReducer,
   };
