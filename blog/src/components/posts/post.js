@@ -40,10 +40,10 @@ const Post = ({ post, loading, getSinglePost, match: { params } }) => {
             }}
           >
             <div style={{ marginTop: "80px" }}>
-              <p className="text-info">
+              <small className="text-black">
                 Posted at{" "}
                 <Moment format="DD/MM/YYYY">{post && post.date}</Moment>
-              </p>
+              </small>
             </div>
           </div>
         </div>

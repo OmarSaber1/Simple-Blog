@@ -10,14 +10,12 @@ import {
   CLEAR_PROFILE,
 } from "./types";
 
-
-
 import { setAuthToken } from "../utilies/setAuthToken";
 
 ////////////////////////////////////// LOAD USER ACTION //////////////////////////////////
 
 export const userLoaded = () => async (dispatch) => {
-    // if token exists
+  // if token exists
 
   if (localStorage.token) {
     setAuthToken(localStorage.token);

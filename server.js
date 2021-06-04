@@ -11,6 +11,7 @@ app.use(cors());
 const UserRouter = require("./routes/Users");
 const AuthRouter = require("./routes/Auth");
 const PostRouter = require("./routes/Posts");
+const profileRouter = require("./routes/profile");
 
 app.use(express.json());
 
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", UserRouter);
 app.use("/api/auth", AuthRouter);
 app.use("/api/posts", PostRouter);
+app.use("/api/profile", profileRouter);
 //////////////////////////////////////////////// PORT //////////////////////////////////
 const PORT = process.env.PORT | 5000;
 

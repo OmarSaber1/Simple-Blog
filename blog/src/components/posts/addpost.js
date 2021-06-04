@@ -12,8 +12,8 @@ const createPost = ({ addPost }) => {
   return (
     <>
       <div
-        style={{ backgroundColor: "violet" }}
-        className="w-100 p-2 rounded-3"
+        style={{ backgroundColor: "skyblue" }}
+        className="w-50 p-2 rounded-1"
       >
         Add a post...
       </div>
@@ -44,8 +44,8 @@ const createPost = ({ addPost }) => {
                 <small>*{errors.text}</small>{" "}
               </div>
             )}
-            <button className="btn btn-primary w-100 mt-4 mb-4 " type="submit">
-              Submit!
+            <button className="btn btn-primary w-25 mt-4 mb-4 " type="submit">
+              Post!
             </button>
           </Form>
         )}

@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../../middleware/auth");
+const auth = require("../middlewares/Auth");
 const { body, validationResult } = require("express-validator");
 const config = require("config");
-const request = require("request");
-const Profile = require("../../models/Profile");
-const User = require("../../models/User");
+const Profile = require("../Models/Profile");
+const User = require("../Models/users");
 
 // get my profile
 
