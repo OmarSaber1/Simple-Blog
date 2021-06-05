@@ -51,6 +51,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
                   to={`/profile/${profile._id}`}
                   className="btn btn-primary"
                 >
+                  {console.log(profile._id)}
                   View Profile
                 </Link>
               </div>

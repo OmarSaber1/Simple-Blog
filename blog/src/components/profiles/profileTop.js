@@ -10,6 +10,7 @@ const ProfileTop = ({
   },
   profile,
 }) => {
+  console.log(profile);
   const [ImageIds, setImageIds] = useState("");
   let x = 1;
   useEffect(() => {
