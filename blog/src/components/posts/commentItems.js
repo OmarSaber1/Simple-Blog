@@ -7,10 +7,12 @@ import { Image } from "cloudinary-react";
 
 const CommentItems = ({
   comment: { _id, text, name, avatar, user, date },
+  comment,
   post,
   deleteComment,
   auth,
 }) => {
+  console.log(comment, post);
   return (
     <div
       style={{ boxShadow: "3px 4px 5px  grey" }}

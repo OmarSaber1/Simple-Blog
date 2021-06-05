@@ -111,11 +111,14 @@ const ProfileTop = ({
             </form>
           )}
           {previewSource && (
-            <img
-              src={previewSource}
-              alt="chosen"
-              style={{ height: "200px", width: "200px", borderRadius: "50%" }}
-            />
+            <>
+              <img
+                src={previewSource}
+                alt="chosen"
+                style={{ height: "200px", width: "200px", borderRadius: "50%" }}
+              />
+              <h1>It might take a few seconds to upload </h1>
+            </>
           )}
         </div>
       )}

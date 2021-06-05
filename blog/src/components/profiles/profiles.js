@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getProfiles } from "../../actions/profile";
 
-const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+const Profiles = ({ getProfiles, profile: { profiles, profile, loading } }) => {
   //////
   useEffect(() => {
     getProfiles();
@@ -18,7 +18,18 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
     <>
       <h1 className="mt-5 text-center">Profiles</h1>
       <h3 className="mt-1 mb-5 text-center">Welcome to our community!</h3>
-
+      <div className="text-center">
+        {profile && (
+          <Link
+            style={{ margin: "auto" }}
+            to={`/profile/${profile._id}`}
+            className="btn btn-primary "
+          >
+            {console.log(profile._id)}
+            View my Profile
+          </Link>
+        )}
+      </div>
       {!loading && profiles ? (
         profiles.map((profile) => {
           return (
@@ -47,13 +58,6 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
                     works at <b>{profile.company}</b>
                   </p>
                 )}
-                <Link
-                  to={`/profile/${profile._id}`}
-                  className="btn btn-primary"
-                >
-                  {console.log(profile._id)}
-                  View Profile
-                </Link>
               </div>
             </div>
           );

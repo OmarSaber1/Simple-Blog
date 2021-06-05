@@ -54,16 +54,18 @@ const PostItems = ({
               &nbsp;
               {likes && likes.length > 0 && likes.length}
             </button>
-            <Link to={`/post/${_id}`}>
-              <span className="btn btn-primary">
-                discussion{" "}
-                {comments && comments.length > 0 && (
-                  <span className="bg-success rounded px-1">
-                    {comments.length}{" "}
-                  </span>
-                )}
-              </span>
-            </Link>
+            {_id && (
+              <Link to={`/post/${_id}`}>
+                <span className="btn btn-primary">
+                  discussion{" "}
+                  {comments && comments.length > 0 && (
+                    <span className="bg-success rounded px-1">
+                      {comments.length}{" "}
+                    </span>
+                  )}
+                </span>
+              </Link>
+            )}
             &nbsp;
             {auth.isAuthenticated && user == auth.user._id && (
               <button

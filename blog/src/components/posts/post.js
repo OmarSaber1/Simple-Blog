@@ -14,6 +14,7 @@ const Post = ({ post, loading, getSinglePost, match: { params } }) => {
     getSinglePost(params.id);
   }, [getSinglePost]);
 
+  console.log(post);
   return loading ? (
     <Spinner />
   ) : (
