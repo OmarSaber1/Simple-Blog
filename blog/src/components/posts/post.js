@@ -26,7 +26,7 @@ const Post = ({ post, loading, getSinglePost, match: { params } }) => {
         className="d-flex w-100 p-4 bg-light border border-darken-1 mt-4 "
       >
         <div className="w-25  text-center">
-          {post.avatar ? (
+          {post?.avatar ? (
             <Image
               cloudName="ddeecshur"
               style={{ width: "120px", height: "120px", borderRadius: "50%" }}

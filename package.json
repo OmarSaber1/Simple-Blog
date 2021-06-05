@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node .",
     "server": "nodemon .",
-    "client": "npm start --prefix client",
+    "client": "npm start --prefix blog",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "debug": "nodemon --inspect .",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix blog && npm run build --prefix blog"
