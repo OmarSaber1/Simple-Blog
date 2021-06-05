@@ -153,7 +153,7 @@ router.post("/upload", auth, async (req, res) => {
     console.log("entered backend image");
     const fileStr = req.body.data;
     const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-      upload_presets: "users_images",
+      upload_preset: "users_images",
     });
     console.log(uploadResponse.public_id);
     let user = await User.findOneAndUpdate(
