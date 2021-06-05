@@ -12,11 +12,10 @@ const ProfileTop = ({
 }) => {
   console.log(profile);
   const [ImageIds, setImageIds] = useState("");
-  let x = 1;
+  let x = ImageIds;
   useEffect(() => {
     loadImage();
     console.log(ImageIds);
-    x++;
   }, []);
   const loadImage = async () => {
     try {
