@@ -5,7 +5,7 @@ import { PROFILE_ERR, GET_PROFILE, GET_PROFILES } from "./types";
 
 export const profileAction = () => async (dispatch) => {
   try {
-    const response = await axios.get("http://localhost:5000/api/profile/me");
+    const response = await axios.get("/api/profile/me");
     console.log(response);
     dispatch({ type: GET_PROFILE, payload: response.data });
   } catch (err) {
@@ -23,7 +23,7 @@ export const profileAction = () => async (dispatch) => {
 
 export const getProfiles = () => async (dispatch) => {
   try {
-    const response = await axios.get("http://localhost:5000/api/profile");
+    const response = await axios.get("/api/profile");
     console.log(response);
     dispatch({ type: GET_PROFILES, payload: response.data });
   } catch (err) {
@@ -40,9 +40,7 @@ export const getProfiles = () => async (dispatch) => {
 
 export const getProfileById = (userId) => async (dispatch) => {
   try {
-    const response = await axios.get(
-      `http://localhost:5000/api/profile/${userId}`
-    );
+    const response = await axios.get(`/api/profile/${userId}`);
     console.log(response);
     dispatch({ type: GET_PROFILE, payload: response.data });
   } catch (err) {
@@ -65,11 +63,7 @@ export const createProfile =
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/profile",
-        formData,
-        configData
-      );
+      const response = await axios.post("/api/profile", formData, configData);
       console.log(response);
       dispatch({ type: GET_PROFILE, payload: response.data });
 

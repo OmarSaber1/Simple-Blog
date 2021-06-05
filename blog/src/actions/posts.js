@@ -13,7 +13,7 @@ import {
 /////// get all posts //////
 export const getPosts = () => async (dispatch) => {
   try {
-    const posts = await axios.get("http://localhost:5000/api/posts");
+    const posts = await axios.get("/api/posts");
 
     dispatch({ type: GET_POSTS, payload: posts.data });
   } catch (err) {
@@ -26,9 +26,7 @@ export const getPosts = () => async (dispatch) => {
 
 export const likeOrDislikePost = (id) => async (dispatch) => {
   try {
-    const postLiked = await axios.put(
-      `http://localhost:5000/api/posts/like/${id}`
-    );
+    const postLiked = await axios.put(`/api/posts/like/${id}`);
     console.log(postLiked.data);
     dispatch({ type: LIKE_POST, payload: { id, postLiked: postLiked.data } });
   } catch (err) {
@@ -41,9 +39,7 @@ export const likeOrDislikePost = (id) => async (dispatch) => {
 
 export const deletePost = (id) => async (dispatch) => {
   try {
-    const postDeletedId = await axios.delete(
-      `http://localhost:5000/api/posts/${id}`
-    );
+    const postDeletedId = await axios.delete(`/api/posts/${id}`);
     console.log(postDeletedId.data);
     dispatch({
       type: POST_DELETE,
@@ -64,11 +60,7 @@ export const addPost = (formData) => async (dispatch) => {
     },
   };
   try {
-    const post = await axios.post(
-      `http://localhost:5000/api/posts`,
-      formData,
-      header
-    );
+    const post = await axios.post(`/api/posts`, formData, header);
     console.log(post.data);
     dispatch({
       type: ADD_POST,
@@ -83,7 +75,7 @@ export const addPost = (formData) => async (dispatch) => {
 /////// get a single posts //////
 export const getSinglePost = (id) => async (dispatch) => {
   try {
-    const post = await axios.get(`http://localhost:5000/api/posts/${id}`);
+    const post = await axios.get(`/api/posts/${id}`);
     console.log(post);
     dispatch({ type: GET_POST, payload: post.data });
   } catch (err) {
@@ -102,7 +94,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
   };
   try {
     const Post = await axios.post(
-      `http://localhost:5000/api/posts/comment/${postId}`,
+      `/api/posts/comment/${postId}`,
       formData,
       header
     );
@@ -122,7 +114,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
 export const deleteComment = (postId, commentId) => async (dispatch) => {
   try {
     const Post = await axios.delete(
-      `http://localhost:5000/api/posts/comment/${postId}/${commentId}`
+      `/api/posts/comment/${postId}/${commentId}`
     );
     console.log(Post.data);
     dispatch({
