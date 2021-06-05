@@ -19,7 +19,7 @@ const ProfileTop = ({
   }, []);
   const loadImage = async () => {
     try {
-      const im = await axios.get("http://localhost:5000/api/profile/images");
+      const im = await axios.get("/api/profile/images");
       const im1 = im.data;
       console.log(im1[0]?.public_id);
       setImageIds(im1[0]?.public_id);
@@ -58,7 +58,7 @@ const ProfileTop = ({
   const uploadImage = async (base64EncodedImage) => {
     console.log(base64EncodedImage);
     try {
-      await fetch("http://localhost:5000/api/profile/upload", {
+      await fetch("/api/profile/upload", {
         method: "POST",
         body: JSON.stringify({ data: base64EncodedImage }),
         headers: {
