@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import ProfileAbout from "./profileAbout";
 import ProfileTop from "./profileTop";
 
-const Profile = ({ match: { params }, profile: { profile, loading } }) => {
+const Profile = ({
+  match: { params },
+  profile: { profile, avatar, loading },
+}) => {
+  console.log(profile);
   return (
     <>
       <Link className="btn btn-info mt-5" to={`/developers`}>

@@ -73,7 +73,7 @@ export const createProfile =
       console.log(response);
       dispatch({ type: GET_PROFILE, payload: response.data });
 
-      Edit ? history.push("/dashboard") : history.push("/dashboard");
+      history.push("/dashboard");
     } catch (err) {
       // Error
       console.log(err.response.data.errors);

@@ -6,13 +6,12 @@ const config = require("config");
 const Profile = require("../Models/Profile");
 const User = require("../Models/users");
 
+const { cloudinary } = require("../utils/cloudinary");
+
 // get my profile
 
 router.get("/me", auth, async (req, res) => {
   try {
-    console.log("entrd");
-    console.log(req.sign);
-
     const profile = await Profile.findOne({ user: req.sign }).populate("user", [
       "name",
       "avatar",
@@ -61,13 +60,7 @@ router.get("/user/:id", async (req, res) => {
 
 router.post(
   "/",
-  [
-    auth,
-    [
-      body("status", "Status is required").not().isEmpty(),
-      body("skills", "Skills is required").not().isEmpty(),
-    ],
-  ],
+  [auth, [body("status", "Status is required").not().isEmpty()]],
   async (req, res) => {
     //check validations
     const errors = validationResult(req);
@@ -82,7 +75,6 @@ router.post(
       website = null,
       location = null,
       status = null,
-      skills = null,
       bio = null,
       githubusername = null,
       youtube = null,
@@ -91,15 +83,6 @@ router.post(
       linkedin = null,
       instagram = null,
     } = req.body;
-
-    if (skills) {
-      console.log(skills);
-      skills = skills.split(",").map((skill) => {
-        return skill.trim();
-      });
-      //Generate an array and trim spaces
-      console.log(`skills in bi is ${skills}`);
-    }
 
     // check if profile exists
 
@@ -112,7 +95,6 @@ router.post(
         website,
         location,
         status,
-        skills,
         bio,
         githubusername,
         youtube,
@@ -269,61 +251,6 @@ router.put(
   }
 );
 
-//////////////////////////////// delete an education ///////////////////////////////
-
-router.delete("/education/:id", auth, async (req, res) => {
-  try {
-    const profile = await Profile.findOne({ user: req.sign });
-
-    const idIndex = profile.education
-      .map((exp) => exp._id)
-      .indexOf(req.params.id);
-
-    console.log(idIndex);
-
-    if (idIndex !== -1) {
-      profile.education.splice(idIndex, 1);
-
-      await profile.save();
-      return res.status(200).send(profile);
-    }
-    res.send(`no such id education `);
-    // catch errors
-  } catch (err) {
-    console.error(err);
-    res.status(400).send(`Server Error`);
-  }
-});
-
-//////////////////////////////// get github repos for profile///////////////////////////////
-
-router.get("/github/:username", (req, res) => {
-  try {
-    const options = {
-      uri: `https://api.github.com/users/${
-        req.params.username
-      }/repos?per_page=5&
-      sort=created:asc&client_id=${config.get(
-        "githubClientId"
-      )}&client_secret=${config.get("githubSecret")}`,
-      method: "GET",
-      headers: { "user-agent": "node.js" },
-    };
-
-    request(options, (error, response, body) => {
-      if (error) {
-        if (response.statusCode !== 200) {
-          return res.status(400).send("no such github found");
-        }
-      }
-      res.json(JSON.parse(body));
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(400).send(`no such github found`);
-  }
-});
-
 //////////////////////////////// delete a profile , user , posts///////////////////////////////
 
 router.delete("/", auth, async (req, res) => {
@@ -343,6 +270,7 @@ router.delete("/", auth, async (req, res) => {
   }
 });
 
+//// post a photo
 router.post("/upload", auth, async (req, res) => {
   try {
     console.log("entered backend image");
@@ -350,11 +278,35 @@ router.post("/upload", auth, async (req, res) => {
     const uploadResponse = await cloudinary.uploader.upload(fileStr, {
       upload_preset: "users_images",
     });
-    console.log(uploadResponse);
+    console.log(uploadResponse.public_id);
+    let user = await User.findOneAndUpdate(
+      { _id: req.sign },
+      { $set: { avatar: uploadResponse.public_id } },
+      {
+        new: true,
+        upsert: true,
+      }
+    );
     res.json({ msg: "yaya" });
+    console.log(user);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ err: "Something went wrong" });
+    res.status(400).json({ err: "Something went wrong" });
+  }
+});
+
+router.get("/images", auth, async (req, res) => {
+  try {
+    const { resources } = await cloudinary.search
+      .expression("resource_type:image")
+      .execute();
+    const user = await User.findOne({ _id: req.sign });
+    console.log(user.avatar, resources);
+    const publicId = resources.filter((file) => file.public_id == user.avatar);
+    console.log(publicId);
+    res.send(publicId);
+  } catch (err) {
+    console.error(err);
   }
 });
 

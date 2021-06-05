@@ -7,6 +7,7 @@ import { Spinner } from "../layout/spinner";
 import Moment from "react-moment";
 import CommentForm from "./commentForm";
 import CommentItems from "./commentItems";
+import { Image } from "cloudinary-react";
 
 const Post = ({ post, loading, getSinglePost, match: { params } }) => {
   useEffect(() => {
@@ -25,11 +26,18 @@ const Post = ({ post, loading, getSinglePost, match: { params } }) => {
         className="d-flex w-100 p-4 bg-light border border-darken-1 mt-4 "
       >
         <div className="w-25  text-center">
-          <img
-            className="rounded-circle w-50 "
-            alt=""
-            src={post && post.avatar}
-          ></img>
+          {post.avatar ? (
+            <Image
+              cloudName="ddeecshur"
+              style={{ width: "120px", height: "120px", borderRadius: "50%" }}
+              publicId={post.avatar}
+            ></Image>
+          ) : (
+            <img
+              style={{ width: "202px", height: "220px" }}
+              src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
+            ></img>
+          )}
           <h1 className="p-2">{post && post.name}</h1>
         </div>
         <div className="mx-5">

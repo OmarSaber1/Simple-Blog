@@ -19,7 +19,7 @@ router.get("/", auth, async (req, res) => {
     res.json(user);
     //
   } catch (err) {
-    res.status(500).json({ errors: `Server Error` });
+    res.status(404).json({ errors: `Server Error` });
   }
 });
 
@@ -69,7 +69,7 @@ router.post(
       }
     } catch (err) {
       console.error(err.message);
-      res.status(500).json({ errors: "Server Error" });
+      res.status(404).json({ errors: "Server Error" });
     }
   }
 );
