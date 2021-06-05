@@ -288,6 +288,7 @@ router.post("/upload", auth, async (req, res) => {
       }
     );
     res.json({ msg: "yaya" });
+    console.log(`user`);
     console.log(user);
   } catch (err) {
     console.error(err);
@@ -301,7 +302,6 @@ router.get("/images", auth, async (req, res) => {
       .expression("resource_type:image")
       .execute();
     const user = await User.findOne({ _id: req.sign });
-    console.log(user.avatar, resources);
     const publicId = resources.filter((file) => file.public_id == user.avatar);
     console.log(publicId);
     res.send(publicId);

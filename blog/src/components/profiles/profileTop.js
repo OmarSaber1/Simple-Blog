@@ -16,7 +16,7 @@ const ProfileTop = ({
     loadImage();
     console.log(ImageIds);
     x++;
-  }, [ImageIds]);
+  }, []);
   const loadImage = async () => {
     try {
       const im = await axios.get("http://localhost:5000/api/profile/images");
@@ -78,7 +78,7 @@ const ProfileTop = ({
   /////////////////////////////////////
   return (
     <div className="text-center w-100 bg-light p-3">
-      {profile.user.avatar && (
+      {profile && (
         <div>
           {ImageIds ? (
             <Image

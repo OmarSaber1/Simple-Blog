@@ -27,12 +27,19 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
               className="mx-auto w-50 text-center shadow-lg  bg-light p-5 mt-3 border border-black border-1"
             >
               <div>
-                <Image
-                  cloudName="ddeecshur"
-                  alt=""
-                  className="rounded-circle w-25"
-                  publicId={profile.user.avatar}
-                ></Image>
+                {profile.user.avatar ? (
+                  <Image
+                    cloudName="ddeecshur"
+                    alt=""
+                    className="rounded-circle w-25"
+                    publicId={profile.user.avatar}
+                  ></Image>
+                ) : (
+                  <img
+                    style={{ width: "202px", height: "220px" }}
+                    src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
+                  ></img>
+                )}
 
                 <h3>{profile.user.name}</h3>
                 {profile.company && (
