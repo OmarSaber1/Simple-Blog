@@ -7,6 +7,7 @@ const PrivateRoute = ({
   auth: { isAuthenticated, loading },
   ...rest
 }) => {
+  console.log("router privates enter")
   return (
     <Route
       {...rest}
